@@ -1,0 +1,32 @@
+galaxy_info:
+  role_name: ros
+  author: artivis
+  description: An Ansible Role that installs ROS (2) on Ubuntu
+
+  license: MIT
+
+  min_ansible_version: 2.8
+
+  platforms:
+    - name: Ubuntu
+      versions:
+        - xenial
+        - bionic
+        - focal
+        - jammy
+
+  galaxy_tags:
+    - dashing
+    - foxy
+    - humble
+    - kinetic
+    - melodic
+    - noetic
+    - robot
+    - robotics
+    - ros
+    - operating
+    - system
+    - ubuntu
+
+dependencies: []

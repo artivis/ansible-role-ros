@@ -1,0 +1,13 @@
+---
+
+# Whether to install ROS or ROS 2.
+# Defaults to ROS 2.
+ros_version: "2"
+
+# Which ROS variant to install.
+# Any variant from REP 131.
+# Defaults to none.
+ros_variant: ros-base
+
+# Extra packages to install
+packages:

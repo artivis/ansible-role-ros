@@ -1,0 +1,14 @@
+---
+
+- name: Setup ROS keys
+  ansible.builtin.apt_key:
+    keyserver: "{{ ros_keyserver }}"
+    id: "{{ ros_key_id }}"
+  become: true
+
+- name: Setup sources.list
+  ansible.builtin.apt_repository:
+    repo: deb {{ ros_repo }} {{ ansible_distribution_release }} main
+    state: present
+    filename: "ros-{{ ros_distro }}"
+  become: true

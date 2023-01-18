@@ -1,0 +1,37 @@
+---
+
+- name: Verify that ros_version is set
+  ansible.builtin.assert:
+    that:
+      - "{{ ahs_var }} is defined"
+      - "{{ ahs_var }} | length > 0"
+      - "{{ ahs_var }} in {{ _ros_versions }}"
+      - "{{ ahs_var }} != None"
+    fail_msg: "{{ ahs_var }} must be set in {{ _ros_versions }}"
+    success_msg: "Required variable {{ ahs_var }} is defined"
+  loop_control:
+    loop_var: ahs_var
+  with_items:
+    - ros_version
+
+- name: Add ROS repository
+  ansible.builtin.import_tasks:
+    file: add_ros_repo.yml
+
+- name: Install rosdep
+  ansible.builtin.import_tasks:
+    file: install_rosdep.yml
+
+- name: Install ROS
+  ansible.builtin.import_tasks:
+    file: install_ros.yml
+
+- name: Install catkin_tools
+  ansible.builtin.import_tasks:
+    file: install_catkin_tools.yml
+  when: ros_version == '1'
+
+- name: Install colcon
+  ansible.builtin.import_tasks:
+    file: install_colcon.yml
+  when: ros_version == '2'

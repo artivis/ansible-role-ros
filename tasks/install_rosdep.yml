@@ -1,0 +1,17 @@
+---
+
+- name: Install rosdep
+  ansible.builtin.apt:
+    name: "{{ (ros_python_version == '3') | ternary('python3-rosdep', 'python-rosdep') }}"
+  become: true
+
+- name: Initialize rosdep
+  ansible.builtin.command: rosdep init
+  args:
+    creates: /etc/ros/rosdep/sources.list.d/20-default.list
+  become: true
+
+- name: Update rosdep
+  ansible.builtin.command: rosdep update --rosdistro {{ ros_distro }}
+  args:
+    creates: /home/{{ ansible_user_id }}/.ros/rosdep/sources.cache

@@ -1,0 +1,23 @@
+---
+
+- name: Install ROS
+  ansible.builtin.apt:
+    name: "{{ 'ros-' + ros_distro + '-' + ros_variant }}"
+  when: (ros_variant is defined) and (ros_variant is not none)
+  become: true
+
+- name: Install extra packages
+  ansible.builtin.apt:
+    name: "{{ packages }}"
+  when: (packages is defined) and (packages is not none)
+  become: true
+
+- name: Set up ROS sourcing in .bashrc
+  ansible.builtin.blockinfile:
+    dest: /home/{{ ansible_user_id }}/.bashrc
+    block: |
+      if [ -f /opt/ros/{{ ros_distro }}/setup.bash ]; then
+        source /opt/ros/{{ ros_distro }}/setup.bash
+      fi;
+    marker_begin: "[ros] BEGIN"
+    marker_end: "[ros] END"

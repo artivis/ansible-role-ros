@@ -1,0 +1,7 @@
+---
+
+- name: Install catkin_tools
+  ansible.builtin.pip:
+    executable: pip3
+    name: catkin_tools
+    extra_args: --user

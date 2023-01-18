@@ -1,0 +1,22 @@
+---
+
+- name: Install pip
+  ansible.builtin.apt:
+    name: python3-pip
+  become: true
+
+- name: Install colcon
+  ansible.builtin.pip:
+    executable: pip3
+    name: colcon-common-extensions
+    extra_args: --user
+
+- name: Set up colcon auto-completion
+  ansible.builtin.blockinfile:
+    dest: /home/{{ ansible_user_id }}/.bashrc
+    block: |
+      if [ -f $HOME/.local/share/colcon_argcomplete/hook ]; then
+        source $HOME/.local/share/colcon_argcomplete/hook/colcon-argcomplete.bash
+      fi;
+    marker_begin: "[colcon] BEGIN"
+    marker_end: "[colcon] END"
