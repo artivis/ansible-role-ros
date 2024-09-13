@@ -4,7 +4,7 @@ _ros_versions: ["1", "2"]
 
 _ros_distro_map: {
   "1":{'xenial':'kinetic', 'bionic':'melodic', 'focal':'noetic'},
-  "2":{'bionic':'dashing', 'focal':'foxy', 'jammy':'humble'}
+  "2":{'bionic':'dashing', 'focal':'foxy', 'jammy':'humble', 'noble':'jazzy'}
 }
 
 ros_distro: "{{ _ros_distro_map[ros_version][ansible_distribution_release] }}"
@@ -15,7 +15,7 @@ ros_keyserver: hkp://keyserver.ubuntu.com:80
 ros_key_id: C1CF6E31E6BADE8868B172B4F42ED6FBAB17C654
 
 _ros_repo_map: {
-  "1":http://packages.ros.org/ros/ubuntu, "2":http://repo.ros2.org/ubuntu/main
+  "1":http://packages.ros.org/ros/ubuntu, "2":http://packages.ros.org/ros2/ubuntu
 }
 
 ros_repo: "{{ _ros_repo_map[ros_version] }}"
